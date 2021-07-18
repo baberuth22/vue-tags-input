@@ -22,7 +22,7 @@
           ]"
           tabindex="0"
           class="ti-tag"
-          @click="$emit('tag-clicked', { tag, index })"
+          @click.stop="$emit('tag-clicked', { tag, index })"
         >
           <div class="ti-content">
             <div
@@ -45,7 +45,7 @@
               <span
                 v-if="!$scopedSlots['tag-center']"
                 :class="{ 'ti-hidden': tagsEditStatus[index] }"
-                @click="performEditTag(index)"
+                @click.stop="performEditTag(index)"
               >{{ tag.text }}</span>
               <tag-input
                 v-if="!$scopedSlots['tag-center']"
@@ -96,13 +96,13 @@
               v-if="!$scopedSlots['tag-actions']"
               v-show="tagsEditStatus[index]"
               class="ti-icon-undo"
-              @click="cancelEdit(index)"
+              @click.stop="cancelEdit(index)"
             />
             <i
               v-if="!$scopedSlots['tag-actions']"
               v-show="!tagsEditStatus[index]"
               class="ti-icon-close"
-              @click="performDeleteTag(index)"
+              @click.stop="performDeleteTag(index)"
             />
             <slot
               v-if="$scopedSlots['tag-actions']"
@@ -141,7 +141,7 @@
             @input="updateNewTag"
             @blur="$emit('blur', $event)"
             @focus="focused = true; $emit('focus', $event)"
-            @click="addOnlyFromAutocomplete ? false : selectedItem = null"
+            @click.stop="addOnlyFromAutocomplete ? false : selectedItem = null"
           >
         </li>
       </ul>
@@ -168,7 +168,7 @@
         >
           <div
             v-if="!$scopedSlots['autocomplete-item']"
-            @click="performAddTags(item, undefined, 'autocomplete')"
+            @click.stop="performAddTags(item, undefined, 'autocomplete')"
           >
             {{ item.text }}
           </div>
